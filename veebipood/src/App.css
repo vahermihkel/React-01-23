@@ -1,0 +1,19 @@
+.pilt {
+  width: 100px;
+}
+
+.pilt:hover {
+  opacity: 0.7;
+}
+
+.nupp {
+  cursor: pointer;
+}
+
+.nupp:hover {
+  font-weight: bold;
+}
+
+/* position: relative;
+position: absolute;
+saan ümber tõsta */
