@@ -1,8 +1,15 @@
 import { useRef, useState } from "react"
 
+// use-ga algavad on Reacti hookid
+// Hookid:
+// alati funktsiooni kujul võetakse kasutusele ehk pannakse sulud lõppu
+// alati imporditakse
+// alati kõige üles - mitte tingimuslikult
+// alati use--- eesliidesega
+
 function LisaToode() {
   const [sonum, muudaSonum] = useState("Lisa toode!");
-  const inputiLuger = useRef();
+  const inputiLuger = useRef(); // reference
 
   // function lisa() {
 
@@ -25,5 +32,13 @@ function LisaToode() {
     </div>
   )
 }
+
+  // console.log --- puhtalt arendajate jaoks, kuvamaks välja muutujate sees olevat infot
+  // console.log(inputiLuger);
+  // console.log(inputiLuger.current); // <input ref={inputiLuger} type="text" />
+  // console.log(inputiLuger.current.value); // reaalne väärtus
+
+  // inputiLuger.current.value;
+  // document.getElementById("inputi_ID").value;
 
 export default LisaToode

@@ -2,7 +2,9 @@ import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Avaleht from './pages/Avaleht';
 import LisaToode from './pages/LisaToode';
+import Meist from './pages/Meist';
 import Ostukorv from './pages/Ostukorv';
+import Seaded from './pages/Seaded';
 
 // Meil juhtub programmis kahte tüüpi vigu
 // 1. Kompileerimise vead  
@@ -19,7 +21,7 @@ import Ostukorv from './pages/Ostukorv';
 function App() {
   return (
     <div className="App">
-      <Link to="/avaleht">
+      <Link to="/">
         <img className="pilt" src="https://estonia.ee/wp-content/uploads/nobe_netist_4.jpg" alt="" />
       </Link>
       <Link to="/ostukorv">
@@ -28,14 +30,24 @@ function App() {
       <Link to="/lisa-toode">
         <button className="nupp">Lisa toode</button>
       </Link>
+      <Link to="/meist">
+        <button className="nupp">Meist</button>
+      </Link>
+      <Link to="/seaded">
+        <button className="nupp">Seaded</button>
+      </Link>
 
-      {/* localhost:3000/avaleht */}
+      {/* localhost:3000    www.mihkelmihkel.ee */}
       <Routes>
-        <Route path="avaleht" element={ <Avaleht /> } />
+        <Route path="" element={ <Avaleht /> } />
         <Route path="ostukorv" element={ <Ostukorv /> } />
         <Route path="lisa-toode" element={ <LisaToode /> } />
+        <Route path="meist" element={ <Meist /> } />
+        <Route path="seaded" element={ <Seaded /> } />
       </Routes>
 
+      {/* self-closing: <Avaleht /> <img className="pilt" src="" alt="" />  <input ref={} type="text" /> <br />  */}
+      {/* algus ja lõpu tag: div, button, Link,  */}
     </div>
   );
 }

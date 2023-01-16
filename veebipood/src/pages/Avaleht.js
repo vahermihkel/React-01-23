@@ -1,5 +1,16 @@
 import { useState } from "react";
 
+// tumesinine - HTMLs <div>, <button>   JS function, const, let --- liigitused
+// keskmine sinine - muutuja
+// helesinine - HTML elemendi atribuut, element attribute/property    JS   JavaScripti/Reacti muutujad
+// kollane - funktsioon, üldiselt on sulud lõpus
+// lillad - import, from, export, return, default  ülejäänud muud sõnad
+// kõik sulud - loogeline, kandiline, tavaline -: kollane, lilla, sinine, kollane, lilla, sinine
+//            see ei tähenda midagi
+// väljakommenteeritud: roheline {{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}
+// Suure tähega + Roheline HTMLs - imporditud kood
+// oranž - jutumärkides väärtus (pole vahet kas ühekordsed või kahekordsed jutumärgid)
+
 function Avaleht() {
   const [kogus, uuendaKogus] = useState(0); // numbrilised väärtused --- arvutused: kogusumma, kogus, kalkulaator
   const [sonum, uuendaSonum] = useState(""); // sõnalised väärtused --- nimi, isikukood, telefoninumber, asukoht
