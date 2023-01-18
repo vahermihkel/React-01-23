@@ -17,3 +17,11 @@
 /* position: relative;
 position: absolute;
 saan ümber tõsta */
+
+.yellow {
+  color: rgb(163, 163, 38);
+}
+
+.blue {
+  color: rgb(34, 34, 156);
+}
