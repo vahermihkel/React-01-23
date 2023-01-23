@@ -4,6 +4,7 @@ import Avaleht from './pages/Avaleht';
 import LisaToode from './pages/LisaToode';
 import Meist from './pages/Meist';
 import Ostukorv from './pages/Ostukorv';
+import Poed from './pages/Poed';
 import Seaded from './pages/Seaded';
 
 // Meil juhtub programmis kahte tüüpi vigu
@@ -36,6 +37,9 @@ function App() {
       <Link to="/seaded">
         <button className="nupp">Seaded</button>
       </Link>
+      <Link to="/poed">
+        <button className="nupp">Poed</button>
+      </Link>
 
       {/* localhost:3000    www.mihkelmihkel.ee */}
       <Routes>
@@ -44,6 +48,7 @@ function App() {
         <Route path="lisa-toode" element={ <LisaToode /> } />
         <Route path="meist" element={ <Meist /> } />
         <Route path="seaded" element={ <Seaded /> } />
+        <Route path="poed" element={ <Poed /> } />
       </Routes>
 
       {/* self-closing: <Avaleht /> <img className="pilt" src="" alt="" />  <input ref={} type="text" /> <br />  */}
