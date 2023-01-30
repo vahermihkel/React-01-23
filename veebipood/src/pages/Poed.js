@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useState } from "react"
 
 // poed??, tooted, kasutajad, kategooriad??, tellimused, pakiautomaadid....
@@ -96,8 +97,24 @@ function Poed() {
     uuendaPoed(tulem);
   }
 
+  const kustuta = (index) => {
+    // 0, 1, 2, 3
+    poed.splice(index,1); // mitmendat kustutan KOMA mitu tk
+    uuendaPoed(poed.slice());
+  }
+
+  const nimiViide = useRef(); // useRef-st import!
+
+  const lisa = () => {
+    poed.push(nimiViide.current.value);
+    uuendaPoed(poed.slice());
+  }
+
   return (
     <div>
+      <label>Uue poe nimi</label> <br />
+      <input ref={nimiViide} type="text" /> <br />
+      <button onClick={lisa}>Sisesta</button> <br /> <br />
       <button onClick={tagasiOriginaali}>Tagasi originaali</button>
       <button onClick={() => uuendaPoed([])}>Kustuta kõik</button>
       <button onClick={sorteeriAZ}>Sorteeri A-Z</button>
@@ -116,7 +133,11 @@ function Poed() {
       <button onClick={muudaTahtedeArvLoppu}>Muuda kõigile tähemärkide arv lõppu</button>
       <button onClick={muudaKriipsudAlgusesse}>Muuda kõigile kriipsud ette</button>
       <div>Poode on {poed.length} tk</div>
-      {poed.map(e => <div>{e}</div>)}
+      {poed.map((e, i) => 
+        <div key={i}>
+          {e}
+          <button onClick={() => kustuta(i)}>x</button>
+        </div>)}
       <div>----------------</div>
       <div>Ülemiste</div>
       <div>Viimsi</div>

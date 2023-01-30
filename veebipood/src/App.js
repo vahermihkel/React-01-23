@@ -1,6 +1,7 @@
 import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Avaleht from './pages/Avaleht';
+import Hinnad from './pages/Hinnad';
 import LisaToode from './pages/LisaToode';
 import Meist from './pages/Meist';
 import Ostukorv from './pages/Ostukorv';
@@ -40,6 +41,9 @@ function App() {
       <Link to="/poed">
         <button className="nupp">Poed</button>
       </Link>
+      <Link to="/hinnad">
+        <button className="nupp">Hinnad</button>
+      </Link>
 
       {/* localhost:3000    www.mihkelmihkel.ee */}
       <Routes>
@@ -49,6 +53,7 @@ function App() {
         <Route path="meist" element={ <Meist /> } />
         <Route path="seaded" element={ <Seaded /> } />
         <Route path="poed" element={ <Poed /> } />
+        <Route path="hinnad" element={ <Hinnad /> } />
       </Routes>
 
       {/* self-closing: <Avaleht /> <img className="pilt" src="" alt="" />  <input ref={} type="text" /> <br />  */}
