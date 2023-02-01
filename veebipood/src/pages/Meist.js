@@ -19,8 +19,8 @@ function Meist() {
       <div className={aadress.charAt(0) === aadress.charAt(0).toLowerCase() ? "yellow" : "blue"}>Meie aadress:
         {aadress}
       </div>
-      <button onClick={() => uuendaAadressi(aadress.toUpperCase())}>Kõik suurteks tähtedeks</button>
-      <button onClick={() => uuendaAadressi(aadress.toLowerCase())}>Kõik väikesteks tähtedeks</button>
+      <button onClick={() => uuendaAadressi(aadress.toUpperCase())}>Kõik aadressil suurteks tähtedeks</button>
+      <button onClick={() => uuendaAadressi(aadress.toLowerCase())}>Kõik aadressil väikesteks tähtedeks</button>
     </div>
   )
 }
