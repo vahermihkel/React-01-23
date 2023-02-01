@@ -1,12 +1,16 @@
 import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Avaleht from './pages/Avaleht';
+import HaldaTooteid from './pages/HaldaTooteid';
 import Hinnad from './pages/Hinnad';
 import LisaToode from './pages/LisaToode';
 import Meist from './pages/Meist';
+import MuudaToode from './pages/MuudaToode';
 import Ostukorv from './pages/Ostukorv';
 import Poed from './pages/Poed';
 import Seaded from './pages/Seaded';
+import Tooted from './pages/Tooted';
+import YksikToode from './pages/YksikToode';
 
 // Meil juhtub programmis kahte tüüpi vigu
 // 1. Kompileerimise vead  
@@ -44,6 +48,12 @@ function App() {
       <Link to="/hinnad">
         <button className="nupp">Hinnad</button>
       </Link>
+      <Link to="/tooted">
+        <button className="nupp">Tooted</button>
+      </Link>
+      <Link to="/halda-tooteid">
+        <button className="nupp">Halda tooteid</button>
+      </Link>
 
       {/* localhost:3000    www.mihkelmihkel.ee */}
       <Routes>
@@ -54,6 +64,10 @@ function App() {
         <Route path="seaded" element={ <Seaded /> } />
         <Route path="poed" element={ <Poed /> } />
         <Route path="hinnad" element={ <Hinnad /> } />
+        <Route path="tooted" element={ <Tooted /> } />
+        <Route path="halda-tooteid" element={ <HaldaTooteid /> } />
+        <Route path="yksik-toode" element={ <YksikToode /> } />
+        <Route path="muuda-toode" element={ <MuudaToode /> } />
       </Routes>
 
       {/* self-closing: <Avaleht /> <img className="pilt" src="" alt="" />  <input ref={} type="text" /> <br />  */}

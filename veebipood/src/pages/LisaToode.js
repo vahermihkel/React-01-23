@@ -20,6 +20,9 @@ function LisaToode() {
       muudaSonum("Tühja nimetusega ei saa lisada!");
     } else {
       muudaSonum("Toode lisatud " + inputiLuger.current.value);
+      const tooted = JSON.parse(localStorage.getItem("tooted")) || [];
+      tooted.push(inputiLuger.current.value);
+      localStorage.setItem("tooted", JSON.stringify(tooted));
     }
   }
 
