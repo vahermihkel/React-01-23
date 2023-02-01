@@ -2,15 +2,15 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 
 function Ostukorv() {     // array, list, massiiv
-  const [ostukorv, uuendaOstukorv] = useState(["Coca", "Fanta", "Sprite", "Vichy"]);
+  const [ostukorv, uuendaOstukorv] = useState(["Coca", "Fanta", "Sprite", "Vichy", "Vitamin well"]);
 
-  // Tühjendamine - uuendaOstukorv([]);
 
   // Ühe kustutamine - splice
   const kustuta = (i) => {
     ostukorv.splice(i,1); // splice ---> mitmendat, mitu tk
     uuendaOstukorv(ostukorv.slice());
   }
+
 
   // Ühe lisamine ---> lõppu juurde ehk push
   const lisa = (klikitudToode) => {
