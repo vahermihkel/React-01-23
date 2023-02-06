@@ -60,6 +60,15 @@ function Hinnad() {
     uuendaHinnad(hinnad.slice());
   }
 
+  const arvutaNumbridKokku = () => {
+    console.log("ARVUTATUD!"); // <--- parem klõps -> inspect -> console vaatesse kirjutas sõnumi
+    // let summa = 0;
+    // hinnad.forEach(hind => summa += hind);
+    // hinnad.forEach(hind => summa = summa + hind);
+    // return summa;
+    return hinnad.reduce((summa, hind) => summa + hind, 0);
+  }
+
   return (
     <div>
       <br />
@@ -77,6 +86,7 @@ function Hinnad() {
       <br />
       <br />
       {hinnad.map((element, index) => <button key={index} onClick={() => kustuta(index)}>{element}</button>)}
+      <div>Kokku: {arvutaNumbridKokku()}</div>
     </div>      
   )
 }
