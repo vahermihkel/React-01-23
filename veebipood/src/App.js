@@ -66,8 +66,8 @@ function App() {
         <Route path="hinnad" element={ <Hinnad /> } />
         <Route path="tooted" element={ <Tooted /> } />
         <Route path="halda-tooteid" element={ <HaldaTooteid /> } />
-        <Route path="yksik-toode" element={ <YksikToode /> } />
-        <Route path="muuda-toode" element={ <MuudaToode /> } />
+        <Route path="yksik-toode/:index" element={ <YksikToode /> } />
+        <Route path="muuda-toode/:jrkNr" element={ <MuudaToode /> } />
       </Routes>
 
       {/* self-closing: <Avaleht /> <img className="pilt" src="" alt="" />  <input ref={} type="text" /> <br />  */}

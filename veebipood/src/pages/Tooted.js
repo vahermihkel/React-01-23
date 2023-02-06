@@ -1,7 +1,9 @@
 import { useState } from "react"
+import { Link } from "react-router-dom";
 
-function Tooted() {
-  const [tooted, uuendaTooted] = useState(["Google P2", "P5", "T1", "RS7"]);
+function Tooted() {           // useState(["Google P2", "P5", "T1", "RS7"]);
+                                              // "["Nobe", "BMW"]"   null            || --> []
+  const [tooted, uuendaTooted] = useState(JSON.parse(localStorage.getItem("tooted")) || []);
 
   const lisaOstukorvi = (klikitudToode) => {
     // localStorage.getItem()
@@ -30,7 +32,9 @@ function Tooted() {
     <div>
       {tooted.map((toode, jrkNr) => 
         <div key={jrkNr}>
-          {toode}
+          <Link to={"/yksik-toode/" + jrkNr}>
+            {toode}
+          </Link>
           <button onClick={() => lisaOstukorvi(toode)}>Lisa ostukorvi</button>
         </div>)}
     </div>

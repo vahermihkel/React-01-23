@@ -23,6 +23,7 @@ function LisaToode() {
       const tooted = JSON.parse(localStorage.getItem("tooted")) || [];
       tooted.push(inputiLuger.current.value);
       localStorage.setItem("tooted", JSON.stringify(tooted));
+      inputiLuger.current.value = "";
     }
   }
 
