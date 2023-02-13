@@ -3,43 +3,21 @@ import { useState } from "react"
 
 // rfce
 function Hinnad() {
-  const [hinnad, uuendaHinnad] = useState(
-    [
-      {"nimi": "Coca 6 pakk", "hind": 31, "valuuta": "EUR", "alandatud": false}, 
-      {"nimi": "Red bull", "hind": 12, "valuuta": "USD", "alandatud": true}, 
-      {"nimi": "Vichy", "hind": 4, "valuuta": "EUR", "alandatud": true}, 
-      {"nimi": "Fat burn", "hind": 99, "valuuta": "JPN", "alandatud": false}, 
-      {"nimi": "Fanta kast", "hind": 121, "valuuta": "EUR", "alandatud": true}, 
-      {"nimi": "Budweiser", "hind": 55, "valuuta": "USD", "alandatud": true}
-    ]
-  );
-
-  const nulliFiltrid = () => {
-    uuendaHinnad([
-      {"nimi": "Coca 6 pakk", "hind": 31, "valuuta": "EUR", "alandatud": false}, 
-      {"nimi": "Red bull", "hind": 12, "valuuta": "USD", "alandatud": true}, 
-      {"nimi": "Vichy", "hind": 4, "valuuta": "EUR", "alandatud": true}, 
-      {"nimi": "Fat burn", "hind": 99, "valuuta": "JPN", "alandatud": false}, 
-      {"nimi": "Fanta kast", "hind": 121, "valuuta": "EUR", "alandatud": true}, 
-      {"nimi": "Budweiser", "hind": 55, "valuuta": "USD", "alandatud": true}
-    ]);
-  }
+  const [hinnad, uuendaHinnad] = useState([31, 12, 4, 99, 121, 55]);
 
   const az = () => {
-    // => {}.localeCompare({})      .hind  et saada primitiivini
-    // => 31.localeCompare(12)     numbreid ei saa locale kaudu võrrelda, pean teisendama tüübi sõnaks
-    // => "31".localeCompare("12")
-    hinnad.sort((a,b) => a.hind.toString().localeCompare(b.hind.toString()));
+    hinnad.sort();
     uuendaHinnad(hinnad.slice());
   }
 
   const za = () => {
-    hinnad.sort((a,b) => b.hind.toString().localeCompare(a.hind.toString()));
+    hinnad.sort();
+    hinnad.reverse();
     uuendaHinnad(hinnad.slice());
   }
 
   const suurem = () => {
-    hinnad.sort((a, b) => b - a); // KODUS LÕPETADA
+    hinnad.sort((a, b) => b - a);
     // hinnad.sort((a, b) => a - b);
     // hinnad.reverse();
     // hinnad.sort((a,b) => b > a ? 1 : -1);
@@ -47,33 +25,33 @@ function Hinnad() {
   }
 
   const v2iksem = () => {
-    hinnad.sort((a, b) => a - b); // KODUS LÕPETADA
+    hinnad.sort((a, b) => a - b);
     uuendaHinnad(hinnad.slice());
   }
 
   const filtreeri = () => {
-    const tulem = hinnad.filter(e => e > 30); // KODUS LÕPETADA 
+    const tulem = hinnad.filter(e => e > 30);
     uuendaHinnad(tulem);
   }
 
   const filtreeri2 = () => {      //    "312312"   --->   312312         Number("312312")
-    const tulem = hinnad.filter(e => e.hind.toString().startsWith("1")); // e.startsWith is not a function 
+    const tulem = hinnad.filter(e => e.toString().startsWith("1")); // e.startsWith is not a function 
     uuendaHinnad(tulem);                            //    --> parem klõps -> inspect -> console
   }
 
   const paaritud = () => { // 5 % 4   // 0,1,2,3
     // const tulem = hinnad.filter(e => e % 2 !== 0); 
-    const tulem = hinnad.filter(e => e % 2 === 1);  // KODUS LÕPETADA
+    const tulem = hinnad.filter(e => e % 2 === 1); 
     uuendaHinnad(tulem);
   }
 
   const vahenda = () => {
-    const tulem = hinnad.map(e => {return{...e, "hind": e.hind - 1}});
+    const tulem = hinnad.map(e => e - 1);
     uuendaHinnad(tulem);
   }
 
   const suurenda = () => {
-    const tulem = hinnad.map(e => {return{...e, "hind": e.hind + 1}});
+    const tulem = hinnad.map(e => e + 1);
     uuendaHinnad(tulem);
   }
 
@@ -88,14 +66,11 @@ function Hinnad() {
     // hinnad.forEach(hind => summa += hind);
     // hinnad.forEach(hind => summa = summa + hind);
     // return summa;
-                        // 0      31
-                        // 0     {"nimi": "Coca 6 pakk", "hind": 31, "valuuta": "EUR", "alandatud": false}
-    return hinnad.reduce((summa, toode) => summa + toode.hind, 0);
+    return hinnad.reduce((summa, hind) => summa + hind, 0);
   }
 
   return (
     <div>
-      <button onClick={nulliFiltrid}>Nulli filtrid</button>
       <br />
       <button onClick={az}>Sorteeri A-Z</button>
       <button onClick={za}>Sorteeri Z-A</button>
@@ -110,11 +85,7 @@ function Hinnad() {
       <button onClick={suurenda}>Suurenda igaüht 1 võrra</button>
       <br />
       <br />
-      {hinnad.map((element, index) => 
-        <button key={index} onClick={() => kustuta(index)}>
-          {element.hind}
-        </button>
-          )}
+      {hinnad.map((element, index) => <button key={index} onClick={() => kustuta(index)}>{element}</button>)}
       <div>Kokku: {arvutaNumbridKokku()}</div>
     </div>      
   )

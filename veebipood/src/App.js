@@ -78,6 +78,11 @@ function App() {
 
 export default App;
 
+// drag&drop - mallid Wordpress 2500 eur
+// arvutitark.ee  10arendajat 2 aastat
+// backend - maksed, registreerumised, sisselogimised, pakiautomaadid, rahvastikuregistri päringud, tooted andmebaasis
+// java, c#, python, php
+
 // 45min + 30min 1h15min
 
 

@@ -25,3 +25,15 @@ saan ümber tõsta */
 .blue {
   color: rgb(34, 34, 156);
 }
+
+.aktiivne {
+  border: 1px solid green;
+  background-color: rgb(236, 243, 236);
+  margin: 5px;
+}
+
+.mitteaktiivne {
+  border: 1px solid red;
+  background-color: rgb(246, 239, 239);
+  margin: 5px;
+}

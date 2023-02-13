@@ -28,12 +28,27 @@ function Tooted() {           // useState(["Google P2", "P5", "T1", "RS7"]);
     // localStorage.setItem("ostukorv", ostukorvLS);
   }
 
+  const sorteeriAZ = () => {} // KODUS LÕPETADA
+
+  const sorteeriZA = () => {} // KODUS LÕPETADA
+
+  const sorteeriHindKasvavalt = () => {} // KODUS LÕPETADA
+
+  const sorteeriHindKahanevalt = () => {} // KODUS LÕPETADA
+
   return (
     <div>
-      {tooted.map((toode, jrkNr) => 
+      <button onClick={sorteeriAZ}>Sorteeri A-Z</button>
+      <button onClick={sorteeriZA}>Sorteeri Z-A</button>
+      <button onClick={sorteeriHindKasvavalt}>Sorteeri hind kasvavalt</button>
+      <button onClick={sorteeriHindKahanevalt}>Sorteeri hind kahanevalt</button>
+      {tooted.filter(e => e.aktiivne === true).map((toode, jrkNr) => 
         <div key={jrkNr}>
           <Link to={"/yksik-toode/" + jrkNr}>
-            {toode}
+            <div>{toode.nimi}</div>
+            <div>{toode.hind}</div>
+            <div>{toode.pilt}</div>
+            {/* <div>{toode.aktiivne}</div> */}
           </Link>
           <button onClick={() => lisaOstukorvi(toode)}>Lisa ostukorvi</button>
         </div>)}
