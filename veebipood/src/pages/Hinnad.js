@@ -40,9 +40,6 @@ function Hinnad() {
 
   const suurem = () => {
     hinnad.sort((a, b) => b - a); // KODUS LÕPETADA
-    // hinnad.sort((a, b) => a - b);
-    // hinnad.reverse();
-    // hinnad.sort((a,b) => b > a ? 1 : -1);
     uuendaHinnad(hinnad.slice());
   }
 
@@ -61,8 +58,7 @@ function Hinnad() {
     uuendaHinnad(tulem);                            //    --> parem klõps -> inspect -> console
   }
 
-  const paaritud = () => { // 5 % 4   // 0,1,2,3
-    // const tulem = hinnad.filter(e => e % 2 !== 0); 
+  const paaritud = () => { 
     const tulem = hinnad.filter(e => e % 2 === 1);  // KODUS LÕPETADA
     uuendaHinnad(tulem);
   }
