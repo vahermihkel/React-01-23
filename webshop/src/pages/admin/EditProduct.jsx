@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import productsFromFile from "../../data/products.json";
+import categoriesFromFile from "../../data/categories.json";
+import { Alert } from "@mui/material";
 
 function EditProduct() {
   const { id } = useParams();
@@ -31,14 +33,43 @@ function EditProduct() {
     // ["Nobe", "Tesla", "BMW"][0] = "Audi";
     // ["Audi", "Tesla", "BMW"]
     productsFromFile[index] = newProduct;
+    // productsFromFile[index].id = Number(idRef.current.value);
+    // productsFromFile[index].image = imageRef.current.value;
+    // productsFromFile[index].name = imageRef.current.name;
+    // productsFromFile[index].price = Number(idRef.current.price);
     navigate("/admin/maintain-products");
+  }
+
+  const [isError, setError] = useState(false);
+
+  const checkIdUniqueness = () => {
+                // [{id: "Nobe"}, {id: "Tesla"}, {id: "BMW"}].find()
+                //        {id: "Nobe"} => "Nobe" === inputi sisse sisestatu
+    const found = productsFromFile.find(element => element.id === Number(idRef.current.value));
+    if (found === undefined) { // tumesinised - true, false, undefined, null
+      // console.log("Kellelgi pole!");
+      setError(false);
+    } else {
+      // console.log("Kellelgi on olemas!");
+      setError(true);
+    }
+
+    // const found2 = productsFromFile.filter(element => element.id === Number(idRef.current.value));
+    // if (found2.length === 0) { // tumesinised - true, false, undefined, null
+    //   // console.log("Kellelgi pole!");
+    //   setError(false);
+    // } else {
+    //   // console.log("Kellelgi on olemas!");
+    //   setError(true);
+    // }
   }
 
   return (
     <div>
+      {isError === true && <Alert severity="error">Sisestatud ID on juba olemas!</Alert>}
       {productFound !== undefined && <div>
         <label>ID</label> <br />
-        <input ref={idRef} type="number" defaultValue={productFound.id} /> <br />
+        <input ref={idRef} onChange={checkIdUniqueness} type="number" defaultValue={productFound.id} /> <br />
         <label>Name</label> <br />
         <input ref={nameRef} type="text" defaultValue={productFound.name} /> <br />
         <label>Price</label> <br />
@@ -46,12 +77,15 @@ function EditProduct() {
         <label>Image</label> <br />
         <input ref={imageRef} type="text" defaultValue={productFound.image} /> <br />
         <label>Category</label> <br />
-        <input ref={categoryRef} type="text" defaultValue={productFound.category} /> <br />
+        {/* <input ref={categoryRef} type="text" defaultValue={productFound.category} /> <br /> */}
+        <select ref={categoryRef}>
+          {categoriesFromFile.map(element => <option key={element.name}>{element.name}</option> )}
+        </select> <br />
         <label>Description</label> <br />
         <input ref={descriptionRef} type="text" defaultValue={productFound.description} /> <br />
         <label>Active</label> <br />
         <input ref={activeRef} type="checkbox" defaultChecked={productFound.active} /> <br />
-        <button onClick={changeProduct}>Change</button>
+        <button onClick={changeProduct} disabled={isError === true}>Change</button>
       </div>}
       {productFound === undefined && <div>Product not found!</div> }
     </div>

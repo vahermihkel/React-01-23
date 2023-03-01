@@ -9,7 +9,14 @@ import React from 'react'
 // 7. Kuvame HTMLs <div>{productFound.id}</div>
 // 8. Valideerimine kui toodet ei leitud (siis võiks teada anda)
 
+// import productsFromFile from "../data/products.json";
+
 function SingleProduct() {
+  // const {id} = useParams();
+         // productsFromFile[0]  <- esimene   productsFromFile[1] <- teine
+  // const found = productsFromFile[49950471]; <- 49miljonilise järjekorranumbri
+  // const productFound = productsFromFile.find(element => element.id === Number(id));
+
   return (
     <div>SingleProduct</div>
   )

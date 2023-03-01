@@ -1,10 +1,11 @@
 import productsFromFile from "../../data/products.json";
 import Button from 'react-bootstrap/Button';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 function MaintainProducts() {
   const [products, setProducts] = useState(productsFromFile);
+  const searchedProductRef = useRef();
 
                       //  79966360
   const deleteProduct = (productId) => {
@@ -13,8 +14,16 @@ function MaintainProducts() {
     setProducts(productsFromFile.slice());
   }
 
+  const searchFromProducts = () => {
+    const found = productsFromFile.filter( element => 
+      element.name.toLowerCase().includes(searchedProductRef.current.value.toLowerCase()) );
+    setProducts(found);
+  }
+
   return (
     <div>
+      <input ref={searchedProductRef} onChange={searchFromProducts} type="text" />
+      <div>{products.length} tk</div>
       {products.map(product => 
         <div key={product.id}>
           <img src={product.image} alt="" />
