@@ -8,28 +8,31 @@ function MaintainProducts() {
   // const [products, setProducts] = useState(productsFromFile);
   const searchedProductRef = useRef();
   const [products, setProducts] = useState([]);
+  const [dbProducts, setDbProducts] = useState([]);
 
+  // navigate("/admin/maintain-products");
   useEffect(() => {
     fetch(config.productDbUrl)
       .then(res => res.json())
-      .then(json => setProducts(json || []))
+      .then(json => {
+        setProducts(json || [])
+        setDbProducts(json || []);
+      })
   }, []);
 
                       //  79966360
   const deleteProduct = (productId) => {
-    const index = products.findIndex(element => element.id === productId);
-    products.splice(index,1);
-    setProducts(products.slice());
-    // PEAB OLEMA ANDMEBAASIST KUSTUTAMINE
+    const index = dbProducts.findIndex(element => element.id === productId);
+    dbProducts.splice(index,1);
+    fetch(config.productDbUrl , {"method": "PUT", "body": JSON.stringify(dbProducts)})
+      .then(() => searchFromProducts());
   }
 
   const searchFromProducts = () => {
-    const found = products.filter( element => 
+    // andmebaasipäringut ei tee
+    const found = dbProducts.filter( element => 
       element.name.toLowerCase().includes(searchedProductRef.current.value.toLowerCase()) );
     setProducts(found);
-    // FILTER VÄHENDAB EELMIST FILTERDAMIST
-    // yksPood.endsWith("e")
-    // yksPood.length === 8
   }
 
   return (

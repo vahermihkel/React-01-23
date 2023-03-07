@@ -1,20 +1,29 @@
-import React, { useRef, useState } from "react";
-import categoriesFromFile from "../../data/categories.json";
+import React, { useEffect, useRef, useState } from "react";
+// import categoriesFromFile from "../../data/categories.json";
+import config from "../../data/config.json";
 
 function MaintainCategories() {
   // []
-  const [categories, setCategories] = useState(categoriesFromFile);
+  const [categories, setCategories] = useState([]);
   const categoryRef = useRef();
 
+  useEffect(() => {
+    fetch(config.categoryDbUrl)
+      .then(res => res.json())
+      .then(json => setCategories(json || []))
+  }, []);
+
   const addCategory = () => {
-    categoriesFromFile.push({"name": categoryRef.current.value});
-    setCategories(categoriesFromFile.slice());
+    categories.push({"name": categoryRef.current.value});
+    setCategories(categories.slice());
     categoryRef.current.value = "";
+    fetch(config.categoryDbUrl,{"method": "PUT", "body": JSON.stringify(categories)});
   };
 
   const deleteCategory = (index) => {
-    categoriesFromFile.splice(index,1);
-    setCategories(categoriesFromFile.slice());
+    categories.splice(index,1);
+    setCategories(categories.slice());
+    fetch(config.categoryDbUrl,{"method": "PUT", "body": JSON.stringify(categories)});
   }
 
   return (

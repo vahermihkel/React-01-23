@@ -12,8 +12,13 @@ function AddProduct() {
   const descriptionRef = useRef();
   const activeRef = useRef();
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    fetch(config.categoryDbUrl)
+      .then(res => res.json())
+      .then(json => setCategories(json || []))
+
     fetch(config.productDbUrl)
       .then(res => res.json())
       .then(json => setProducts(json || []))
@@ -40,6 +45,7 @@ function AddProduct() {
       // 2.
       products.push(addProduct);
       // ANDMEBAASI UUESTI LISAMINE (kõik tooted koos uue tootega)
+      fetch(config.productDbUrl , {"method": "PUT", "body": JSON.stringify(products)});
 
       // 3. localStorage.setItem("products", JSON.stringify(products));
       nameRef.current.value = "";
@@ -58,7 +64,9 @@ function AddProduct() {
         <label>Image</label>
         <input ref={imageRef} type="text" /> <br />
         <label>Category</label>
-        <input ref={categoryRef} type="text" /> <br />
+        <select ref={categoryRef}>
+          {categories.map(element => <option key={element.name}>{element.name}</option> )}
+        </select> <br />
         <label>Description</label>
         <input ref={descriptionRef} type="text" /> <br />
         <label>Active</label>

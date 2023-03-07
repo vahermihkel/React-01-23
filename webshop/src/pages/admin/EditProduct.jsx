@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react"
 // import productsFromFile from "../../data/products.json";
-import categoriesFromFile from "../../data/categories.json";
+// import categoriesFromFile from "../../data/categories.json";
 import config from "../../data/config.json";
 import { Alert } from "@mui/material";
 
@@ -21,8 +21,13 @@ function EditProduct() {
   const descriptionRef = useRef();
   const activeRef = useRef();
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    fetch(config.categoryDbUrl)
+      .then(res => res.json())
+      .then(json => setCategories(json || []))
+
     fetch(config.productDbUrl)
       .then(res => res.json())
       .then(json => setProducts(json || []))
@@ -43,12 +48,14 @@ function EditProduct() {
     products[index] = newProduct;
     // HETKEL ANDMEBAASIS EI MUUDETA, PEAME TEGEMA ERALDI PÄRINGU
     // Fetch PUT andmebaasi kõik tooted milles on ka uuenenenud toode
+    fetch(config.productDbUrl , {"method": "PUT", "body": JSON.stringify(products)})
+      .then(() => navigate("/admin/maintain-products"));
+    // 800ms
 
     // productsFromFile[index].id = Number(idRef.current.value);
     // productsFromFile[index].image = imageRef.current.value;
     // productsFromFile[index].name = imageRef.current.name;
     // productsFromFile[index].price = Number(idRef.current.price);
-    navigate("/admin/maintain-products");
   }
 
   const [isError, setError] = useState(false);
@@ -90,7 +97,7 @@ function EditProduct() {
         <label>Category</label> <br />
         {/* <input ref={categoryRef} type="text" defaultValue={productFound.category} /> <br /> */}
         <select ref={categoryRef}>
-          {categoriesFromFile.map(element => <option key={element.name}>{element.name}</option> )}
+          {categories.map(element => <option key={element.name}>{element.name}</option> )}
         </select> <br />
         <label>Description</label> <br />
         <input ref={descriptionRef} type="text" defaultValue={productFound.description} /> <br />

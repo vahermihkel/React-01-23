@@ -1,17 +1,26 @@
 // import productsFromFile from "../data/products.json";
 import Button from '@mui/material/Button';
-import categoriesFromFile from "../data/categories.json";
+// import categoriesFromFile from "../data/categories.json";
 
 import config from "../data/config.json";
 import { useEffect, useState } from "react";
 
 function HomePage() {
   const [products, setProducts] = useState([]);
+  const [dbProducts, setDbProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    fetch(config.categoryDbUrl)
+      .then(res => res.json())
+      .then(json => setCategories(json || []))
+
     fetch(config.productDbUrl)
       .then(res => res.json())
-      .then(json => setProducts(json || []))
+      .then(json => {
+        setProducts(json || [])
+        setDbProducts(json || []);
+      })
   }, []);
   // uef --> Simple React Snippets
   // kui võetakse andmebaasist, siis see tähendab teist välist rakendust (Firebase, Amazon, Microsoft, MongoDB, MySQL, Oracle, PostgreSQL)
@@ -45,14 +54,23 @@ function HomePage() {
     setProducts(products.slice());
   }
 
-  const sortZA = () => {} // KODUS
+  const sortZA = () => {
+    products.sort((a,b) => b.name.localeCompare(a.name));
+    setProducts(products.slice());
+  }
 
-  const sortPriceAsc = () => {} // KODUS
+  const sortPriceAsc = () => {
+    products.sort((a,b) => a.price - b.price);
+    setProducts(products.slice());
+  } 
 
-  const sortPriceDesc = () => {} // KODUS
+  const sortPriceDesc = () => {
+    products.sort((a,b) => b.price - a.price);
+    setProducts(products.slice());
+  } 
 
   const filterByCategory = (categoryClicked) => {
-    const result = products.filter(element => element.category === categoryClicked);
+    const result = dbProducts.filter(element => element.category === categoryClicked);
     setProducts(result);
   }
 
@@ -60,7 +78,7 @@ function HomePage() {
     <div>
       {/* <button onClick={() => filterByCategory("guitar")}>guitar</button>
       <button onClick={() => filterByCategory("drum")}>drum</button> */}
-      {categoriesFromFile.map(element => 
+      {categories.map(element => 
         <button key={element.name} onClick={() => filterByCategory(element.name)}>{element.name}</button>)}
       <br />
       <div>{products.length} products shown</div>

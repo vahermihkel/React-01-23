@@ -63,3 +63,17 @@ function App() {
 }
 
 export default App;
+
+// KOJU: API otspunktide päringute
+// 09.03 N 17.30 --> Loader, sisestamise kontrollid Addis ja Editis, dünaamiline CSS
+// KOJU: Nortali proovitöö
+// 13.03 E 17.30 --> sisselogimine/registreerumine
+// 15.03 K 17.30 --> lahendame Nortali proovitööd 
+
+// Iseseisev lõpuprojekt
+// ükskõik mis asi, mis on tehtud Reactis
+// Youtubest mingi tutoriali järgi tegemine
+// OpenAI / ChatGPT järgi tegemine
+// ise nullist tehtud projekt
+
+// 29.03
