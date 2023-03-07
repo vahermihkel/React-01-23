@@ -1,13 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useRef, useState } from 'react'
-import productsFromFile from "../../data/products.json";
+import { useEffect, useRef, useState } from "react"
+// import productsFromFile from "../../data/products.json";
 import categoriesFromFile from "../../data/categories.json";
+import config from "../../data/config.json";
 import { Alert } from "@mui/material";
 
 function EditProduct() {
   const { id } = useParams();
-  const productFound = productsFromFile.find(element => element.id === Number(id));
-  const index = productsFromFile.indexOf(productFound); 
+  const [products, setProducts] = useState([]);
+  const productFound = products.find(element => element.id === Number(id));
+  const index = products.indexOf(productFound); 
   // findIndex kasutame järjekorranumbri otsimiseks objektide osas
   // indexOf kasutame järjekorranumbri leidmiseks primitiivide puhul (string, number, boolean)
   // indexOf on lihtsam ja kui me otsime just leitud toote järjekorranumbrit, siis saame seda kasutada
@@ -19,6 +21,12 @@ function EditProduct() {
   const descriptionRef = useRef();
   const activeRef = useRef();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(config.productDbUrl)
+      .then(res => res.json())
+      .then(json => setProducts(json || []))
+  }, []);
 
   const changeProduct = () => {
     const newProduct = {
@@ -32,7 +40,10 @@ function EditProduct() {
     }
     // ["Nobe", "Tesla", "BMW"][0] = "Audi";
     // ["Audi", "Tesla", "BMW"]
-    productsFromFile[index] = newProduct;
+    products[index] = newProduct;
+    // HETKEL ANDMEBAASIS EI MUUDETA, PEAME TEGEMA ERALDI PÄRINGU
+    // Fetch PUT andmebaasi kõik tooted milles on ka uuenenenud toode
+
     // productsFromFile[index].id = Number(idRef.current.value);
     // productsFromFile[index].image = imageRef.current.value;
     // productsFromFile[index].name = imageRef.current.name;
@@ -45,7 +56,7 @@ function EditProduct() {
   const checkIdUniqueness = () => {
                 // [{id: "Nobe"}, {id: "Tesla"}, {id: "BMW"}].find()
                 //        {id: "Nobe"} => "Nobe" === inputi sisse sisestatu
-    const found = productsFromFile.find(element => element.id === Number(idRef.current.value));
+    const found = products.find(element => element.id === Number(idRef.current.value));
     if (found === undefined) { // tumesinised - true, false, undefined, null
       // console.log("Kellelgi pole!");
       setError(false);

@@ -1,5 +1,6 @@
-import { useRef, useState } from "react"
-import productsFromFile from "../../data/products.json"; // 0.
+import { useEffect, useRef, useState } from "react"
+// import productsFromFile from "../../data/products.json"; // 0.
+import config from "../../data/config.json";
 
 function AddProduct() {
   const [message, setMessage] = useState();
@@ -10,6 +11,13 @@ function AddProduct() {
   const categoryRef = useRef();
   const descriptionRef = useRef();
   const activeRef = useRef();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(config.productDbUrl)
+      .then(res => res.json())
+      .then(json => setProducts(json || []))
+  }, []);
 
   const add = () => {
     if (nameRef.current.value === "") {
@@ -30,7 +38,8 @@ function AddProduct() {
       }
 
       // 2.
-      productsFromFile.push(addProduct);
+      products.push(addProduct);
+      // ANDMEBAASI UUESTI LISAMINE (kõik tooted koos uue tootega)
 
       // 3. localStorage.setItem("products", JSON.stringify(products));
       nameRef.current.value = "";

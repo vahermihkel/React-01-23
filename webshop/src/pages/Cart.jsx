@@ -57,6 +57,7 @@ function Cart() {
     localStorage.setItem("cart", JSON.stringify(cart));
   }
 
+  // result.data.ee.map()
   // [{product: {id: "1", name:"", price:""}, quantity: 2}, {product: {id: "2", name:"", price:""}, quantity: 1}]
   return (
     <div>

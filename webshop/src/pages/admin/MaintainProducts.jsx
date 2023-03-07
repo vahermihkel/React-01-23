@@ -1,23 +1,35 @@
-import productsFromFile from "../../data/products.json";
+// import productsFromFile from "../../data/products.json";
 import Button from 'react-bootstrap/Button';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom";
+import config from "../../data/config.json";
 
 function MaintainProducts() {
-  const [products, setProducts] = useState(productsFromFile);
+  // const [products, setProducts] = useState(productsFromFile);
   const searchedProductRef = useRef();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(config.productDbUrl)
+      .then(res => res.json())
+      .then(json => setProducts(json || []))
+  }, []);
 
                       //  79966360
   const deleteProduct = (productId) => {
-    const index = productsFromFile.findIndex(element => element.id === productId);
-    productsFromFile.splice(index,1);
-    setProducts(productsFromFile.slice());
+    const index = products.findIndex(element => element.id === productId);
+    products.splice(index,1);
+    setProducts(products.slice());
+    // PEAB OLEMA ANDMEBAASIST KUSTUTAMINE
   }
 
   const searchFromProducts = () => {
-    const found = productsFromFile.filter( element => 
+    const found = products.filter( element => 
       element.name.toLowerCase().includes(searchedProductRef.current.value.toLowerCase()) );
     setProducts(found);
+    // FILTER VÄHENDAB EELMIST FILTERDAMIST
+    // yksPood.endsWith("e")
+    // yksPood.length === 8
   }
 
   return (

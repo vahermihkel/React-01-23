@@ -1,11 +1,25 @@
-import productsFromFile from "../data/products.json";
+// import productsFromFile from "../data/products.json";
 import Button from '@mui/material/Button';
-import { useState } from "react";
 import categoriesFromFile from "../data/categories.json";
 
+import config from "../data/config.json";
+import { useEffect, useState } from "react";
+
 function HomePage() {
-  const [products, setProducts] = useState(productsFromFile);
-  
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(config.productDbUrl)
+      .then(res => res.json())
+      .then(json => setProducts(json || []))
+  }, []);
+  // uef --> Simple React Snippets
+  // kui võetakse andmebaasist, siis see tähendab teist välist rakendust (Firebase, Amazon, Microsoft, MongoDB, MySQL, Oracle, PostgreSQL)
+  // välisest rakendusest võtmine võtab alati aega (100ms - 500ms)
+  // useState sisse tuleb kirjutada algväärtuseks see väärtus mis on senikaua kuni võetakse
+  // React ei jää veerand sekundiks seisma (1ms-5ms)
+
+
   // [{id: "1", name:"", price:""} 2, {id: "2", name:"", price:""} 1]
   // [{id: "1", name:"", price:""}, {id: "1", name:"", price:""}, {id: "2", name:"", price:""}]
   // [{toode: {id: "1", name:"", price:""}, kogus: 2}, {toode: {id: "2", name:"", price:""}, kogus: 1}]
@@ -38,7 +52,7 @@ function HomePage() {
   const sortPriceDesc = () => {} // KODUS
 
   const filterByCategory = (categoryClicked) => {
-    const result = productsFromFile.filter(element => element.category === categoryClicked);
+    const result = products.filter(element => element.category === categoryClicked);
     setProducts(result);
   }
 
