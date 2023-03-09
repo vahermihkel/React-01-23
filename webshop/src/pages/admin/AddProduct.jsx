@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-// import productsFromFile from "../../data/products.json"; // 0.
 import config from "../../data/config.json";
 
 function AddProduct() {
@@ -25,13 +24,33 @@ function AddProduct() {
   }, []);
 
   const add = () => {
+    if (idRef.current.value === "") {
+      setMessage("Need an ID!");
+      return; // return lõpetab funktsiooni
+    } 
     if (nameRef.current.value === "") {
       setMessage("Need a name!");
-    } else {
+      return; // return lõpetab funktsiooni
+    }
+    if (nameRef.current.value.charAt(0).toLowerCase() === nameRef.current.value.charAt(0)) {
+      setMessage("Name must start with capital letter!");
+      return; // return lõpetab funktsiooni
+    } 
+    // regex on otsingumuster   regular expression    regulaaravaldis (guugeldatakse)
+    if (/^[A-Z]+[a-zA-Z]*$/.test(nameRef.current.value) === false) {
+      setMessage("Name must start with capital letter!");
+      return; // return lõpetab funktsiooni
+    } 
+    if (priceRef.current.value === "") {
+      setMessage("Need a price!");
+      return; // return lõpetab funktsiooni
+    } 
+    if (/^\S*$/.test(imageRef.current.value) === false) {
+      setMessage("Image URL must not have space in it!");
+      return; // return lõpetab funktsiooni
+    } 
+    // else {
       setMessage("Product added:" +  nameRef.current.value);
-
-      //1. const products = JSON.parse(localStorage.getItem("products")) || [];
-
       const addProduct = {
         "id": Number(idRef.current.value),
         "name": nameRef.current.value,
@@ -42,14 +61,17 @@ function AddProduct() {
         "active": activeRef.current.checked
       }
 
-      // 2.
       products.push(addProduct);
-      // ANDMEBAASI UUESTI LISAMINE (kõik tooted koos uue tootega)
       fetch(config.productDbUrl , {"method": "PUT", "body": JSON.stringify(products)});
-
-      // 3. localStorage.setItem("products", JSON.stringify(products));
+      idRef.current.value = "";
       nameRef.current.value = "";
-    }
+      priceRef.current.value = "";
+      imageRef.current.value = "";
+      categoryRef.current.value = "";
+      descriptionRef.current.value = "";
+      activeRef.current.checked = false;
+    // }
+
   }
 
   return (

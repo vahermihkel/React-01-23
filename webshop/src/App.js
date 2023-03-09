@@ -46,7 +46,7 @@ function App() {
         <Route path="" element={ <HomePage /> } />
         <Route path="cart" element={ <Cart /> } />
         <Route path="contact" element={ <ContactUs /> } />
-        <Route path="product" element={ <SingleProduct /> } />
+        <Route path="product/:id" element={ <SingleProduct /> } />
         <Route path="shops" element={ <Shops /> } />
         <Route path="login" element={ <Login /> } />
         <Route path="signup" element={ <Signup /> } />
@@ -65,9 +65,9 @@ function App() {
 export default App;
 
 // KOJU: API otspunktide päringute
-// 09.03 N 17.30 --> Loader, sisestamise kontrollid Addis ja Editis, dünaamiline CSS
+// 09.03 N 17.30 --> Loader, sisestamise kontrollid Addis ja Editis, dünaamiline CSS, makse
 // KOJU: Nortali proovitöö
-// 13.03 E 17.30 --> sisselogimine/registreerumine
+// 13.03 E 17.30 --> sisselogimine/registreerumine läbi Firebase-i
 // 15.03 K 17.30 --> lahendame Nortali proovitööd 
 
 // Iseseisev lõpuprojekt

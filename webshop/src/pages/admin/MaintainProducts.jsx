@@ -1,26 +1,25 @@
-// import productsFromFile from "../../data/products.json";
 import Button from 'react-bootstrap/Button';
 import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom";
 import config from "../../data/config.json";
+import { Spinner } from 'react-bootstrap';
 
 function MaintainProducts() {
-  // const [products, setProducts] = useState(productsFromFile);
   const searchedProductRef = useRef();
   const [products, setProducts] = useState([]);
   const [dbProducts, setDbProducts] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
-  // navigate("/admin/maintain-products");
   useEffect(() => {
     fetch(config.productDbUrl)
       .then(res => res.json())
       .then(json => {
         setProducts(json || [])
         setDbProducts(json || []);
+        setLoading(false);
       })
   }, []);
 
-                      //  79966360
   const deleteProduct = (productId) => {
     const index = dbProducts.findIndex(element => element.id === productId);
     dbProducts.splice(index,1);
@@ -29,10 +28,13 @@ function MaintainProducts() {
   }
 
   const searchFromProducts = () => {
-    // andmebaasipäringut ei tee
     const found = dbProducts.filter( element => 
       element.name.toLowerCase().includes(searchedProductRef.current.value.toLowerCase()) );
     setProducts(found);
+  }
+
+  if (isLoading === true) {
+    return <Spinner />
   }
 
   return (

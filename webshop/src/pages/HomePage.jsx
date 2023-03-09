@@ -1,14 +1,15 @@
-// import productsFromFile from "../data/products.json";
 import Button from '@mui/material/Button';
-// import categoriesFromFile from "../data/categories.json";
 
 import config from "../data/config.json";
 import { useEffect, useState } from "react";
+import { Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
   const [products, setProducts] = useState([]);
   const [dbProducts, setDbProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(config.categoryDbUrl)
@@ -20,28 +21,16 @@ function HomePage() {
       .then(json => {
         setProducts(json || [])
         setDbProducts(json || []);
+        setLoading(false);
       })
   }, []);
-  // uef --> Simple React Snippets
-  // kui võetakse andmebaasist, siis see tähendab teist välist rakendust (Firebase, Amazon, Microsoft, MongoDB, MySQL, Oracle, PostgreSQL)
-  // välisest rakendusest võtmine võtab alati aega (100ms - 500ms)
-  // useState sisse tuleb kirjutada algväärtuseks see väärtus mis on senikaua kuni võetakse
-  // React ei jää veerand sekundiks seisma (1ms-5ms)
-
-
-  // [{id: "1", name:"", price:""} 2, {id: "2", name:"", price:""} 1]
-  // [{id: "1", name:"", price:""}, {id: "1", name:"", price:""}, {id: "2", name:"", price:""}]
-  // [{toode: {id: "1", name:"", price:""}, kogus: 2}, {toode: {id: "2", name:"", price:""}, kogus: 1}]
-  // [{product: {id: "1", name:"", price:""}, quantity: 2}, {product: {id: "2", name:"", price:""}, quantity: 1}]
+ 
   const addToCart = (productClicked) => {
     const cartLS = JSON.parse(localStorage.getItem("cart")) || [];
                                                   // 3131231231
     const index = cartLS.findIndex(el => el.product.id === productClicked.id)
     if (index >= 0) {
-      // muutmised (ja kustutamised) toimivad ainult järjekorranumbriga
-      // suurendan kogust 1 võrra
       cartLS[index].quantity = cartLS[index].quantity + 1;
-      // uuendaKogus(kogus + 1)
     } else {
       cartLS.push({product: productClicked, quantity: 1});
     }
@@ -74,10 +63,12 @@ function HomePage() {
     setProducts(result);
   }
 
+  if (isLoading === true) {
+      return <Spinner />
+  }
+
   return (
     <div>
-      {/* <button onClick={() => filterByCategory("guitar")}>guitar</button>
-      <button onClick={() => filterByCategory("drum")}>drum</button> */}
       {categories.map(element => 
         <button key={element.name} onClick={() => filterByCategory(element.name)}>{element.name}</button>)}
       <br />
@@ -89,9 +80,11 @@ function HomePage() {
       <button onClick={sortPriceDesc}>Sort price desc</button>
       {products.map(product => 
         <div key={product.id}>
-          <img src={product.image} alt="" />
-          <div>{product.name}</div>
-          <div>{product.price}</div>
+          <Link to={"/product/" + product.id}>
+            <img src={product.image} alt="" />
+            <div>{product.name}</div>
+            <div>{product.price}</div>
+          </Link>
           <Button variant="contained" onClick={() => addToCart(product)}>Lisa ostukorvi</Button>
         </div> )}
     </div>
