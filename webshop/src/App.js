@@ -2,7 +2,7 @@ import './App.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
 import Cart from "./pages/Cart";
 import {ContactUs} from "./pages/ContactUs";
 import HomePage from "./pages/HomePage";
@@ -17,6 +17,7 @@ import MaintainCategories from "./pages/admin/MaintainCategories";
 import MaintainProducts from "./pages/admin/MaintainProducts";
 import MaintainShops from "./pages/admin/MaintainShops";
 import { useTranslation } from 'react-i18next';
+import NotFound from './pages/NotFound';
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -56,6 +57,8 @@ function App() {
         <Route path="admin/maintain-categories" element={ <MaintainCategories /> } />
         <Route path="admin/maintain-products" element={ <MaintainProducts /> } />
         <Route path="admin/maintain-shops" element={ <MaintainShops /> } />
+        <Route path="*" element={ <NotFound /> } />
+        {/* <Route path="*" element={ <Navigate to="/" /> } />  <--- import react-router-dom       */}
       </Routes>
 
     </div>

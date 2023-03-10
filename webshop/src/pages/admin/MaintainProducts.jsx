@@ -41,8 +41,8 @@ function MaintainProducts() {
     <div>
       <input ref={searchedProductRef} onChange={searchFromProducts} type="text" />
       <div>{products.length} tk</div>
-      {products.map(product => 
-        <div key={product.id}>
+      {products.map(product =>   //    if (product.active === true) {     } else {     }
+        <div key={product.id} className={ product.active === true ? "active" : "inactive" }>
           <img src={product.image} alt="" />
           <div>{product.id}</div>
           <div>{product.name}</div>

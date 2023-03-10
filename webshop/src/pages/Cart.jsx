@@ -57,8 +57,35 @@ function Cart() {
     localStorage.setItem("cart", JSON.stringify(cart));
   }
 
-  // result.data.ee.map()
-  // [{product: {id: "1", name:"", price:""}, quantity: 2}, {product: {id: "2", name:"", price:""}, quantity: 1}]
+  const pay = () => {
+
+    const url = "https://igw-demo.every-pay.com/api/v4/payments/oneoff";
+    
+    const headers = {
+      "Authorization": "Basic ZTM2ZWI0MGY1ZWM4N2ZhMjo3YjkxYTNiOWUxYjc0NTI0YzJlOWZjMjgyZjhhYzhjZA==",
+      "Content-Type": "application/json"
+    }; // metaandmed (mis kujul tuleb body + sisselogimise tunnused)
+
+    const body = {
+      "api_username": "e36eb40f5ec87fa2",
+      "account_name": "EUR3D1",
+      "amount": calculateSumOfCart(),
+      "order_reference": Math.floor(Math.random()*999999),
+      "nonce": "dasdsadas" + Math.floor(Math.random()*999999) + new Date(),
+      "timestamp": new Date(),
+      "customer_url": "https://webshop-01-2023.web.app" // firebase.json failist site: "" jutumärkide sees
+      }; // andmed mille alusel uut makset salvestada
+
+    emptyCart();
+
+    fetch(url,{"method": "POST", "body": JSON.stringify(body), "headers": headers})
+      .then(res => res.json())
+      .then(json => window.location.href = json.payment_link);
+      // window.location.href --> vahetab aadressi (välise lingi vastu)
+      // <Link> --> tegime HTMLst ümbersuunamise (see töötab alati)
+      // useNavigate  navigate --> JS-st ümbersuunamine (kui enne tehakse mingi koodiblokk)
+  }
+ 
   return (
     <div>
       <div className="cart-top">
@@ -67,9 +94,10 @@ function Cart() {
         {cart.length === 1 && <div>There is one item in the cart - {calculateItems()} tk</div>}
         {cart.length >= 2 && <div>There is {cart.length} items in the cart - {calculateItems()} tk</div>}
         {cart.length === 0 && <div>The cart is empty</div>}
-        <select>
+        {cart.length > 0 && <select>
           {parcelmachines.map(pm => <option key={pm.NAME}>{pm.NAME}</option>) }
-        </select>
+        </select>}
+        {cart.length > 0 && <Button onClick={pay}>Maksma</Button>}
       </div>
       <div>
         {cart.map((element, index) =>
