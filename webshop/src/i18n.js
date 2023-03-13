@@ -15,6 +15,9 @@ const resources = {
       "maintain-products": "Maintain products",
       "maintain-categories": "Maintain categories",
       "maintain-shops": "Maintain shops",
+      "INVALID_EMAIL": "Invalid email",
+      "INVALID_PASSWORD": "Invalid password",
+      "WEAK_PASSWORD : Password should be at least 6 characters": "Password should be at least 6 characters"
     }
   },
   ee: {
@@ -27,6 +30,9 @@ const resources = {
       "maintain-products": "Halda tooteid",
       "maintain-categories": "Halda kategooriaid",
       "maintain-shops": "Halda poode",
+      "INVALID_EMAIL": "Vale email",
+      "INVALID_PASSWORD": "Vale parool",
+      "WEAK_PASSWORD : Password should be at least 6 characters": "Parool on nõrk"
     }
   }
 };

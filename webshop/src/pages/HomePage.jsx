@@ -1,15 +1,16 @@
 import Button from '@mui/material/Button';
-
 import config from "../data/config.json";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import CartSumContext from "../store/CartSumContext";
 
 function HomePage() {
   const [products, setProducts] = useState([]);
   const [dbProducts, setDbProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const cartSumCtx = useContext(CartSumContext);
 
   useEffect(() => {
     fetch(config.categoryDbUrl)
@@ -34,6 +35,11 @@ function HomePage() {
     } else {
       cartLS.push({product: productClicked, quantity: 1});
     }
+
+    let totalsum = 0;
+    cartLS.forEach(element => totalsum = totalsum + element.product.price * element.quantity);
+
+    cartSumCtx.setCartSum(totalsum.toFixed(2));
 
     localStorage.setItem("cart", JSON.stringify(cartLS));
   }
