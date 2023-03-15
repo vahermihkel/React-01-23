@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import CartSumContext from "../store/CartSumContext";
+import "../css/HomePage.css";
 
 function HomePage() {
   const [products, setProducts] = useState([]);
@@ -75,24 +76,29 @@ function HomePage() {
 
   return (
     <div>
-      {categories.map(element => 
-        <button key={element.name} onClick={() => filterByCategory(element.name)}>{element.name}</button>)}
-      <br />
-      <div>{products.length} products shown</div>
-      <br />
-      <button onClick={sortAZ}>Sort A-Z</button>
-      <button onClick={sortZA}>Sort Z-A</button>
-      <button onClick={sortPriceAsc}>Sort price asc</button>
-      <button onClick={sortPriceDesc}>Sort price desc</button>
-      {products.map(product => 
-        <div key={product.id}>
-          <Link to={"/product/" + product.id}>
-            <img src={product.image} alt="" />
-            <div>{product.name}</div>
-            <div>{product.price}</div>
-          </Link>
-          <Button variant="contained" onClick={() => addToCart(product)}>Lisa ostukorvi</Button>
-        </div> )}
+      <div className="filter-buttons">
+        {categories.map(element => 
+          <button key={element.name} onClick={() => filterByCategory(element.name)}>{element.name}</button>)}
+      </div>
+      <div className="product-count">{products.length} products shown</div>
+      <div className="filter-buttons">
+        <button onClick={sortAZ}>Sort A-Z</button>
+        <button onClick={sortZA}>Sort Z-A</button>
+        <button onClick={sortPriceAsc}>Sort price asc</button>
+        <button onClick={sortPriceDesc}>Sort price desc</button>
+      </div>
+      <div className="products-container">
+        {products.map(product => 
+          <div className="home-product" key={product.id}>
+            <Link to={"/product/" + product.id}>
+              <img src={product.image} alt="" />
+              <div className="product-name">{product.name}</div>
+              <div className="product-price">{product.price}</div>
+            </Link>
+            <Button variant="contained" onClick={() => addToCart(product)}>Lisa ostukorvi</Button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
