@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 
 export const ContactUs = () => {
@@ -20,14 +20,16 @@ export const ContactUs = () => {
   };
 
   return (
-    <form ref={form} onSubmit={sendEmail}>
+    <form className="center" ref={form} onSubmit={sendEmail}>
+      <br /><br />
       <ToastContainer />
       <TextField label="Name" type="text" name="from_name" /> <br />
       <br />
       <TextField label="Email" type="email" name="from_email" /> <br />
       <br />
       <TextField label="Message" multiline name="message" /> <br />
-      <input type="submit" value="Send" /> <br />
+      <br />
+      <Button variant="contained">Send</Button>
     </form>
   );
 };

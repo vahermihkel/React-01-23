@@ -34,16 +34,36 @@ function NavigationBar() {
         <Navbar.Brand as={Link} to="/">Webshop</Navbar.Brand>
         <Nav className="me-auto">
           {authCtx.isLoggedIn === true && <Nav.Link as={Link} to="/admin">{t("admin")}</Nav.Link>}
-          <Nav.Link as={Link} to="/cart">{t("cart")}</Nav.Link>
-          <Nav.Link as={Link} to="/shops">{t("shops")}</Nav.Link>
-          <Nav.Link as={Link} to="/contact">{t("contact")}</Nav.Link>
-          {authCtx.isLoggedIn === false && <Nav.Link as={Link} to="/login">Logi sisse</Nav.Link>}
-          {authCtx.isLoggedIn === false && <Nav.Link as={Link} to="/signup">Registreeru</Nav.Link>}
-          {authCtx.isLoggedIn === true && <Nav.Link onClick={logout}>Logi välja</Nav.Link>}
+          {/* <Nav.Link as={Link} to="/cart">{t("cart")}</Nav.Link> */}
+          <Nav.Link as={Link} to="/shops">
+            <img className="pic" src="/navigation/shops.png" alt="" />
+            {t("shops")}
+          </Nav.Link>
+          <Nav.Link as={Link} to="/contact">
+            <img className="pic" src="/navigation/contact.png" alt="" />
+            {t("contact")}
+          </Nav.Link>
+          {authCtx.isLoggedIn === false && 
+            <Nav.Link as={Link} to="/login"> 
+              <img className="pic" src="/navigation/login.png" alt="" />
+              Logi sisse
+            </Nav.Link>}
+          {authCtx.isLoggedIn === false && 
+            <Nav.Link as={Link} to="/signup">
+              <img className="pic" src="/navigation/signup.png" alt="" />
+              Registreeru
+            </Nav.Link>}
+          {authCtx.isLoggedIn === true && 
+            <Nav.Link onClick={logout}>Logi välja</Nav.Link>}
         </Nav>
-        <div className="cart-sum">{cartSumCtx.cartSum} €</div>
-        <img className="lang" src="/english.png" alt="" onClick={() => changeLang("en")} />
-        <img className="lang" src="/estonian.png" alt="" onClick={() => changeLang("ee")} />
+        <Link to="/cart">
+          <div className="cart-sum"> 
+            <img src="/navigation/cart.png" alt="" />
+            {cartSumCtx.cartSum} €
+          </div>
+        </Link>
+        <img className="lang" src="/lang/english.png" alt="" onClick={() => changeLang("en")} />
+        <img className="lang" src="/lang/estonian.png" alt="" onClick={() => changeLang("ee")} />
       </Container>
     </Navbar>
   )

@@ -30,3 +30,27 @@
   border: 1px solid red;
   background-color: rgb(240, 234, 234);
 }
+
+.cart-sum {
+  margin-right: 22px;
+  cursor: pointer;
+}
+
+.cart-sum:hover {
+  opacity: 0.7;
+}
+
+.cart-sum img {
+  width: 25px;
+  height: 25px;
+  margin: 2px;  
+}
+
+.pic {
+  width: 20px;
+  height: 20px;
+}
+
+.center {
+  text-align: center;
+}

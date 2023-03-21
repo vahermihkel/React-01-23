@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../store/AuthContext";
+import { Button, TextField } from '@mui/material';
 
 function Signup() {
   const emailRef = useRef();
@@ -32,13 +33,13 @@ function Signup() {
   };
 
   return (
-    <div>
+    <div className="center">
       <div>{message}</div>
-      <label>E-mail</label> <br />
-      <input ref={emailRef} type="text" /> <br />
-      <label>Parool</label> <br />
-      <input ref={passwordRef} type="text" /> <br />
-      <button onClick={addUser}>Registreeru</button>
+      <br />
+      <TextField label="Email" ref={emailRef} type="text" /> <br /> <br />
+      <TextField label="Password" ref={passwordRef} type="password" /> <br /> <br />
+      <Button variant="contained" onClick={addUser}>Registreeru</Button>
+      <br />
     </div>
   );
 }

@@ -17,3 +17,8 @@ code {
 * {
   font-family: 'Lato', sans-serif;
 }
+
+a { /* tekib koos <Link></Link>  */
+  text-decoration: none;
+  color: black;
+}

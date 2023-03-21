@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../store/AuthContext";
 import { useTranslation } from "react-i18next";
+import { Button, TextField } from '@mui/material';
 
 function Login() {
   const emailRef = useRef();
@@ -34,13 +35,13 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="center">
       <div>{t(message)}</div>
-      <label>E-mail</label> <br />
-      <input ref={emailRef} type="text" /> <br />
-      <label>Parool</label> <br />
-      <input ref={passwordRef} type="text" /> <br />
-      <button onClick={login}>Logi sisse</button>
+      <br />
+      <TextField label="Email" ref={emailRef} type="text" /> <br /> <br />
+      <TextField label="Password" ref={passwordRef} type="password" /> <br /> <br />
+      <Button variant="contained" onClick={login}>Logi sisse</Button>
+      <br />
     </div>
   );
 }

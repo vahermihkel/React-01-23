@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
-import "../css/Cart.css";
+import styles from "../css/Cart.module.css";
 import CartSumContext from '../store/CartSumContext';
 
 function Cart() {
@@ -88,7 +88,7 @@ function Cart() {
  
   return (
     <div>
-      <div className="cart-top">
+      <div className={styles["cart-top"]}>
         {cart.length > 0 && <Button onClick={emptyCart}>Empty cart</Button>} <br /><br />
         {cart.length > 0 && <div>Cart total is : {calculateSumOfCart()} €</div>} <br /> 
         {cart.length === 1 && <div>There is one item in the cart - {calculateItems()} tk</div>}
@@ -101,17 +101,17 @@ function Cart() {
       </div>
       <div>
         {cart.map((element, index) =>
-         <div className="product" key={index}>
-          <img className="picture" src={element.product.image} alt="" />
-          <div className="name">{element.product.name}</div>
-          <div className="price">{element.product.price} €</div>
-          <div className="quantity">
-            <img src="/minus.png" alt="" className="button" onClick={() => decreaseQuantity(index)} />
+         <div className={styles["product"]} key={index}>
+          <img className={styles["picture"]} src={element.product.image} alt="" />
+          <div className={styles["name"]}>{element.product.name}</div>
+          <div className={styles["price"]}>{element.product.price} €</div>
+          <div className={styles["quantity"]}>
+            <img src="/cart/minus.png" alt="" className={styles["button"]} onClick={() => decreaseQuantity(index)} />
             <div>{element.quantity} tk</div>
-            <img src="/add.png" alt="" className="button" onClick={() => increaseQuantity(index)} />
+            <img src="/cart/add.png" alt="" className={styles["button"]} onClick={() => increaseQuantity(index)} />
           </div>
-          <div className="total">{(element.product.price * element.quantity).toFixed(2)} €</div>
-          <img src="/remove.png" alt="" className="button" onClick={() => deleteFromCart(index)} />
+          <div className={styles["total"]}>{(element.product.price * element.quantity).toFixed(2)} €</div>
+          <img src="/cart/remove.png" alt="" className={styles["button"]} onClick={() => deleteFromCart(index)} />
         </div>)}
       </div>
     </div>

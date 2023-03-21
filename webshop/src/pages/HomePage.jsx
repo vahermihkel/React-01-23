@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import CartSumContext from "../store/CartSumContext";
-import "../css/HomePage.css";
+import styles from "../css/HomePage.module.css";
 
 function HomePage() {
   const [products, setProducts] = useState([]);
@@ -71,33 +71,35 @@ function HomePage() {
   }
 
   if (isLoading === true) {
-      return <Spinner />
+      return <div className={styles["loader-wrapper"]}><Spinner className="loader" /></div>
   }
 
   return (
-    <div>
-      <div className="filter-buttons">
+    <div className={styles["products-wrapper"]}>
+      <div className={styles["category-buttons"]}>
         {categories.map(element => 
-          <button key={element.name} onClick={() => filterByCategory(element.name)}>{element.name}</button>)}
+          <div key={element.name} onClick={() => filterByCategory(element.name)}>{element.name}</div>)}
       </div>
-      <div className="product-count">{products.length} products shown</div>
-      <div className="filter-buttons">
-        <button onClick={sortAZ}>Sort A-Z</button>
-        <button onClick={sortZA}>Sort Z-A</button>
-        <button onClick={sortPriceAsc}>Sort price asc</button>
-        <button onClick={sortPriceDesc}>Sort price desc</button>
-      </div>
-      <div className="products-container">
-        {products.map(product => 
-          <div className="home-product" key={product.id}>
-            <Link to={"/product/" + product.id}>
-              <img src={product.image} alt="" />
-              <div className="product-name">{product.name}</div>
-              <div className="product-price">{product.price}</div>
-            </Link>
-            <Button variant="contained" onClick={() => addToCart(product)}>Lisa ostukorvi</Button>
-          </div>
-        )}
+      <div className={styles["products-content"]}>
+        <div className={styles["filter-buttons"]}>
+          <Button onClick={sortAZ}>Sort A-Z</Button>
+          <Button onClick={sortZA}>Sort Z-A</Button>
+          <Button onClick={sortPriceAsc}>Sort price asc</Button>
+          <Button onClick={sortPriceDesc}>Sort price desc</Button>
+          <span className={styles["product-count"]}>{products.length} products shown</span>
+        </div>
+        <div className={styles["products-container"]}>
+          {products.map(product => 
+            <div className={styles["home-product"]} key={product.id}>
+              <Link className={styles.center} to={"/product/" + product.id}>
+                <img src={product.image} alt="" />
+                <div className={styles["product-name"]}>{product.name}</div>
+                <div className={styles["product-price"]}>{product.price}</div>
+              </Link>
+              <Button variant="contained" onClick={() => addToCart(product)}>Lisa ostukorvi</Button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
